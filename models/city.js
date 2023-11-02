@@ -15,7 +15,7 @@ mongoose.connect(url)
   })
 
   const citySchema = new mongoose.Schema({
-    name: {
+    city: {
         type: String,
         required: true
     }

@@ -1,9 +1,7 @@
 const express = require('express')
-const cors = require('cors')
 
 const app = express()
 
-app.use(cors())
 app.use(express.static('build'))
 
 const City = require('./models/city')
@@ -21,7 +19,7 @@ app.get('/api/cities', (req, res) => {
 app.post('/api/cities', (req, res) => {
   const body = req.body
   const city = new City({
-    name: body.name
+    city: body.name
   })
 
   city.save().then(result => {
