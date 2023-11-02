@@ -19,7 +19,7 @@ app.get('/api/cities', (req, res) => {
 app.post('/api/cities', (req, res) => {
   const body = req.body
   const city = new City({
-    city: body.name
+    city: body.city
   })
 
   city.save().then(result => {
