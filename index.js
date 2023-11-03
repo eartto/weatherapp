@@ -18,7 +18,6 @@ app.get('/api/cities', (req, res) => {
 })
 
 app.post('/api/cities', (req, res) => {
-  console.log(req)
   const city = new City({
     city: req.body.city
   })
