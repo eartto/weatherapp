@@ -28,12 +28,10 @@ app.post('/api/cities', (req, res) => {
   })
 })
 
-app.delete('/api/cities/:id', (req, res) => {
-  City.deleteOne()
-    .then(result => {
-      console.log(result)
-      res.status(204).end()
-    })
+app.delete('/api/cities', (req, res) => {
+  City.$pop().then(result => {
+    console.log(result)
+  })
 })
 
 const PORT = process.env.PORT || 3001
