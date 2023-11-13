@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/cities', (req, res) => {
-  City.find({}).sort('-date').then(cities => {
+  City.find({}).then(cities => {
     res.json(cities)
   })
 })
