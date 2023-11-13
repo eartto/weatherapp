@@ -29,7 +29,7 @@ app.post('/api/cities', (req, res) => {
 })
 
 app.delete('/api/cities/:id', (req, res) => {
-  City.findOneAndDelete({},{"sort": { "_id": -1 }}).then(result => {
+  City.findOneAndDelete({},{"sort": { "_id": 1 }}).then(result => {
     console.log(result)
   })
 })
