@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize]
     
 jobs:
-  deployment_pipeline:
+  linting:
     timeout-minutes: 60
     runs-on: ubuntu-22.04
     steps:
@@ -21,3 +21,24 @@ jobs:
         run: npm install
       - name: lint
         run: npm run lint
+
+  tag_release:
+    if: ${{ github.event_name == 'push' }}
+    needs: [linting]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: anothrNick/github-tag-action@e528bc2b9628971ce0e6f823f3052d1dcd9d512c
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            DEFAULT_BUMP: patch
+            NONE_STRING_TOKEN: "#skip"
+
+  deploy_to_render:
+    if: ${{ github.event_name == 'push' }}
+    needs: [tag_release]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Trigger deployment
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
